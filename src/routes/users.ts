@@ -31,7 +31,7 @@ usersRoute.put('/:uuid', (req: Request, res: Response, next: NextFunction) => {
 });
 
 usersRoute.delete('/:uuid', (req: Request, res: Response, next: NextFunction) => {
-  res.status(200);
+  res.sendStatus(200);
 });
 
 export default usersRoute;
