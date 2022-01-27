@@ -13,4 +13,12 @@ usersRoute.get('/:uuid', (req: Request, res: Response, next: NextFunction) => {
   res.status(200).json({ uuid });
 });
 
+usersRoute.post('/:uuid', (req: Request, res: Response, next: NextFunction) => {
+  const newUser = req.body;
+
+  console.log(newUser);
+
+  res.status(201).json(newUser);
+});
+
 export default usersRoute;
