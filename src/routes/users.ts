@@ -16,11 +16,7 @@ usersRoute.get('/:uuid', async (req: Request<{ uuid: string }>, res: Response, n
   
     res.status(200).send(user);
   } catch (error) {
-    if (error instanceof DatabaseError) {
-      res.sendStatus(400);
-    } else {
-      res.sendStatus(500);
-    }
+    next(error);
   }
 });
 
