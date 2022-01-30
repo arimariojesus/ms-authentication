@@ -8,10 +8,11 @@ usersRoute.get('/', async (req: Request, res: Response, next: NextFunction) => {
   res.status(200).json(users);
 });
 
-usersRoute.get('/:uuid', (req: Request, res: Response, next: NextFunction) => {
-  const uuid = parseInt(req.params.uuid);
+usersRoute.get('/:uuid', async (req: Request<{ uuid: string }>, res: Response, next: NextFunction) => {
+  const uuid = req.params.uuid;
+  const user = await userRepository.findById(uuid);
 
-  res.status(200).json({ uuid });
+  res.status(200).send(user);
 });
 
 usersRoute.post('/:uuid', (req: Request, res: Response, next: NextFunction) => {
