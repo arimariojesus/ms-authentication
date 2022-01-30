@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response, Router } from 'express';
-import DatabaseError from '../models/errors/database';
 import userRepository from '../repositories/user';
 
 const usersRoute = Router();
