@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import ForbiddenError from '../models/errors/forbidden';
 import userRepository from '../repositories/user';
+import JWT from 'jsonwebtoken';
 
 const authorizationRoute = Router();
 
@@ -27,8 +28,19 @@ authorizationRoute.post('/', async (req: Request, res: Response, next: NextFunct
     }
 
     const user = await userRepository.findByUsernameAndPassword(username, password);
-    console.log({ user });
 
+    if (!user) {
+      throw new ForbiddenError('User or password invalid');
+    }
+    
+    const payload = { username: user?.username };
+    const secretKey = 'my_secret_key';
+    const options = {
+      subject: user?.uuid,
+    };
+    const jwt = JWT.sign(payload, secretKey, options);
+    
+    res.status(200).json({ token: jwt });
   } catch(error) {
     next(error);
   }
