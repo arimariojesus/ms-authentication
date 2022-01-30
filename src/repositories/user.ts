@@ -59,6 +59,16 @@ class UserRepository {
     const values = [user.username, user.password];
     await db.query(script, values);
   }
+
+  async remove(uuid: string): Promise<void> {
+    const script = `
+      DELETE
+      FROM application_user
+      WHERE uuid = $1
+    `;
+
+    await db.query(script, [uuid]);
+  }
 }
 
 export default new UserRepository();

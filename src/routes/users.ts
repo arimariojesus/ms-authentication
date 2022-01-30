@@ -25,7 +25,7 @@ usersRoute.post('/:uuid', async (req: Request, res: Response, next: NextFunction
 
 usersRoute.put('/:uuid', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const uuid = parseInt(req.params.uuid);
+    const uuid = req.params.uuid;
     const modifiedUser = {
       ...req.body,
       uuid,
@@ -39,8 +39,16 @@ usersRoute.put('/:uuid', async (req: Request, res: Response, next: NextFunction)
   }
 });
 
-usersRoute.delete('/:uuid', (req: Request, res: Response, next: NextFunction) => {
-  res.sendStatus(200);
+usersRoute.delete('/:uuid', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const uuid = req.params.uuid;
+  
+    await userRepository.remove(uuid);
+
+    res.status(200).send();
+  } catch {
+    res.status(400).send('Error deleting user');
+  }
 });
 
 export default usersRoute;
