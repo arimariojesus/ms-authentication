@@ -10,6 +10,10 @@
      "moduleResolution": "node",
      "rootDir": "src",
      "outDir": "./build",
+     "typeRoots": [
+        "./src/@tyes",
+        "./node_modules/@types"
+     ],
      "forceConsistentCasingInFileNames": true,
      "strict": true,
      "emitDecoratorMetadata": true,
