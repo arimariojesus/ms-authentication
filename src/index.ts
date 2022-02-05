@@ -12,9 +12,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use('/users', usersRoute);
+app.use('/users', bearerAuthenticactionMiddleware, usersRoute);
 app.use('/status', statusRoute);
-app.use('/token', bearerAuthenticactionMiddleware, authorizationRoute);
+app.use('/token', authorizationRoute);
 
 // Error Handlers
 app.use(errorHandler);
